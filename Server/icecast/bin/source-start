@@ -1,0 +1,24 @@
+#!/bin/sh
+
+SAVE_DIR='/home/icecast/records'
+MOUNT_NAME=$1
+LOG_FILE=${SAVE_DIR}/log.txt
+
+echo 'Service Started...'$MOUNT_NAME'\r\n' >> ${LOG_FILE}
+
+cd $SAVE_DIR
+
+#Input URL
+URL=http://localhost:8000$MOUNT_NAME
+
+#Output file
+NOW=$(date +"%s")
+FILE=${SAVE_DIR}${MOUNT_NAME}_$NOW
+
+#log file
+LOGFILE=wget.log
+
+#Download File
+echo $URL $FILE'\r\n' >> ${LOG_FILE}
+
+wget $URL -O $FILE -o $LOGFILE
